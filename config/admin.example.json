@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "sentinel": {
+    "subscriptionId": "<AZURE-SUBSCRIPTION-ID>",
+    "resourceGroup": "rg-a365-pilot",
+    "workspaceName": "law-a365-pilot",
+    "location": "<AZURE-REGION>",
+    "retentionInDays": 30,
+    "dailyQuotaGb": 1,
+    "connectors": {"defenderXdr": true, "office365": true},
+    "pilotUserIds": ["<PILOT-USER-UPN>"],
+    "agentObjectIds": ["<INDIVIDUAL-AGENT-OBJECT-ID>"]
+  },
+  "purview": {
+    "policyName": "A365-PILOT-sensitive-data",
+    "ruleName": "A365-PILOT-sensitive-data-rule",
+    "exchangeLocations": ["<PILOT-MAILBOX-UPN>"],
+    "sharePointLocations": [],
+    "sensitiveInformationType": "Credit Card Number",
+    "minCount": 1
+  }
+}

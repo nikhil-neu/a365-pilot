@@ -1,0 +1,7 @@
+// Compares successive daily metadata hashes, not semantic permission equivalence.
+AgentsInfo
+| where Timestamp > ago(7d)
+| extend PermissionsHash=hash_sha256(tostring(Permissions)), ToolsHash=hash_sha256(tostring(DeclaredTools))
+| summarize Versions=make_set(Version), PermissionStates=make_set(PermissionsHash), ToolStates=make_set(ToolsHash) by AgentId, AgentName
+| where array_length(Versions) > 1 or array_length(PermissionStates) > 1 or array_length(ToolStates) > 1
+// Order-only JSON changes can produce a hash change; this is a review queue, not a maliciousness verdict.

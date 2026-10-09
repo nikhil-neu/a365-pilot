@@ -1,0 +1,9 @@
+// Populate reviewed tool names. Empty list flags all tool activity for review.
+let ApprovedTools = dynamic([]);
+CloudAppEvents
+| where Timestamp > ago(1d)
+| where tostring(RawEventData.Operation) == "execute_tool"
+| extend ObservabilityAppId=tostring(RawEventData.AgentId), ToolName=tostring(RawEventData.ToolName)
+| where isnotempty(ToolName) and not(set_has_element(ApprovedTools, ToolName))
+| summarize Executions=count(), FirstSeen=min(Timestamp), LastSeen=max(Timestamp) by ObservabilityAppId, ToolName
+// Unexpected is not automatically malicious; validate agent-specific tool approval and incident context.

@@ -1,0 +1,4 @@
+union
+(SecurityAlert | summarize Events=count(), LastSeen=max(TimeGenerated) | extend Source="SecurityAlert"),
+(OfficeActivity | summarize Events=count(), LastSeen=max(TimeGenerated) | extend Source="OfficeActivity")
+| project Source, Events, LastSeen

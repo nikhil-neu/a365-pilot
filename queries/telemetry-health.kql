@@ -1,0 +1,9 @@
+// AgentId here is the observability application/client ID. Do not join it directly to EntraAgentId (object ID).
+CloudAppEvents
+| where Timestamp > ago(7d)
+| where tostring(RawEventData.Operation) == "invoke_agent"
+| extend ObservabilityAppId=tostring(RawEventData.AgentId)
+| where isnotempty(ObservabilityAppId)
+| summarize LastInvocation=max(Timestamp), Invocations=count() by ObservabilityAppId
+| extend OlderThan24Hours=LastInvocation < ago(24h)
+// Zero rows means unknown coverage. Never infer a healthy connector from table availability.

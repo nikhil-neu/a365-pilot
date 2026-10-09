@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "name": "action-capable",
+  "description": "Agents invoking tools or changing state",
+  "requiredControls": [
+    "owner",
+    "approved-permissions",
+    "approved-tools",
+    "audit",
+    "telemetry-metadata"
+  ],
+  "deploymentChoices": [
+    "ca-report-only",
+    "purview-test",
+    "containment-simulation"
+  ],
+  "collectContent": false,
+  "automaticPermissionGrants": false
+}

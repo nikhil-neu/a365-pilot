@@ -1,0 +1,27 @@
+name: Offline pilot validation
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.9', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m unittest discover -s tests -v
+      - run: python scripts/check_repository.py
+      - run: python scripts/a365.py check-config
+  purview-mocks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: PowerShell syntax and mocked tenant checks
+        shell: pwsh
+        run: |
+          ./tests/Test-Purview.Tests.ps1
+          ./tests/Set-PurviewPilot.Tests.ps1

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "name": "data-access",
+  "description": "Agents reading protected resources",
+  "requiredControls": [
+    "owner",
+    "approved-permissions",
+    "audit",
+    "telemetry-metadata"
+  ],
+  "deploymentChoices": [
+    "ca-report-only",
+    "purview-test"
+  ],
+  "collectContent": false,
+  "automaticPermissionGrants": false
+}

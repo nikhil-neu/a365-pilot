@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "name": "agent-assurance",
+  "description": "Inventory, configuration drift and response assurance",
+  "requiredControls": [
+    "owner",
+    "approved-permissions",
+    "approved-tools",
+    "audit",
+    "telemetry-metadata"
+  ],
+  "deploymentChoices": [
+    "ca-report-only",
+    "purview-test",
+    "containment-simulation"
+  ],
+  "collectContent": false,
+  "automaticPermissionGrants": false
+}

@@ -1,0 +1,10 @@
+// Populate ONLY approved application/client IDs with confirmed observability attribution.
+let Expected = datatable(ObservabilityAppId:string, AgentName:string) [];
+let Seen = CloudAppEvents
+| where Timestamp > ago(7d)
+| where tostring(RawEventData.Operation) == "invoke_agent"
+| summarize LastSeen=max(Timestamp) by ObservabilityAppId=tostring(RawEventData.AgentId);
+Expected
+| join kind=leftouter Seen on ObservabilityAppId
+| where isnull(LastSeen) or LastSeen < ago(24h)
+| project AgentName, ObservabilityAppId, LastSeen

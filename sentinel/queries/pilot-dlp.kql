@@ -1,0 +1,7 @@
+// Scope is a test user's activity, not proof that an agent caused an event.
+let PilotUsers = dynamic(__PILOT_USERS__);
+OfficeActivity
+| where TimeGenerated > ago(1h)
+| where UserId in~ (PilotUsers)
+| where Operation in ("DlpRuleMatch", "DlpRuleUndo", "DlpInfo")
+| project TimeGenerated, UserId, Operation, OfficeWorkload

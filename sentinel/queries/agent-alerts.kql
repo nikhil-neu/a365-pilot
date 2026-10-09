@@ -1,0 +1,9 @@
+// Entity IDs must actually be present in Defender alerts; a zero result is inconclusive.
+let AgentIds = dynamic(__AGENT_IDS__);
+SecurityAlert
+| where TimeGenerated > ago(1h)
+| mv-expand Entity = todynamic(Entities)
+| extend AgentObjectId = tostring(Entity.AadUserId)
+| where AgentObjectId in~ (AgentIds)
+| summarize TimeGenerated=max(TimeGenerated) by SystemAlertId, AgentObjectId, AlertSeverity, ProviderName
+| project TimeGenerated, SystemAlertId, AgentObjectId, AlertSeverity, ProviderName

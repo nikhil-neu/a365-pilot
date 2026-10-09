@@ -1,0 +1,13 @@
+{
+  "product": "a365-toolkit",
+  "schemaVersion": 1,
+  "productionSupport": "planned; current live executors accept development/test tenants only",
+  "validation": "offline and mocked; live deployment and runtime coverage not established",
+  "capabilities": [
+    {"service":"Entra","available":"Plan, create, promote and disable a narrowly scoped high-risk agent Conditional Access policy","gaps":"Broader policy baseline, production rollout and validated agent-flow coverage","executor":"scripts/a365.py"},
+    {"service":"Defender","available":"Read available hunting evidence; deploy XDR-to-Sentinel incidents/alerts connector","gaps":"Security for AI onboarding is a separate portal workflow; connector and runtime health require verification","executor":"scripts/a365.py and scripts/a365-admin.py"},
+    {"service":"Purview","available":"Approved unified audit enablement; new scoped DLP simulation policy and rule","gaps":"Effective workload coverage, distribution, enforcement promotion and existing-policy updates","executor":"scripts/Set-PurviewPilot.ps1"},
+    {"service":"Sentinel","available":"Workspace/onboarding, XDR and Office365 connectors, three hunting queries, watchlist, two analytics rules, workbook and incident-task automation; approved activation/deactivation","gaps":"Expanded agent-specific detections, executable response runbooks, Agent 365 data lake onboarding and live validation","executor":"scripts/a365-admin.py"},
+    {"service":"Administration","available":"Copilot Chat capability selection and plan approval, explicit tenant selection, exact-plan approval, state checks, evidence receipts, inventory comparison and scoped registry containment","gaps":"Unified cross-service execution, resumable orchestration, configuration reconciliation, approved repair and production qualification","executor":"scripts/a365-toolkit.py routes to existing executors"}
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "packageId": "<REGISTRY-PACKAGE-ID>",
+  "name": "Example test agent",
+  "platform": "<OBSERVED-PLATFORM>",
+  "version": "<APPROVED-VERSION>",
+  "owners": ["<OWNER-OBJECT-ID>"],
+  "permissions": ["<RESOURCE-APP-ID>:<APP-ROLE-ID-OR-DELEGATED-SCOPE>"],
+  "tools": ["<APPROVED-TOOL-ID>"],
+  "requiredControls": ["ca-report-only", "audit", "telemetry-metadata"],
+  "agentObjectId": "<INDIVIDUAL-AGENT-IDENTITY-OBJECT-ID>",
+  "blueprintId": "<BLUEPRINT-OBJECT-ID>",
+  "observabilityAppId": "<AGENT-CLIENT-APPLICATION-ID>"
+}

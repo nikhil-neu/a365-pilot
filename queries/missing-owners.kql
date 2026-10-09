@@ -1,0 +1,6 @@
+AgentsInfo
+| where Timestamp > ago(7d)
+| summarize arg_max(Timestamp, *) by AgentId
+| where isnull(Owners) or array_length(Owners) == 0
+| project Timestamp, AgentId, AgentName, Platform, LifecycleStatus
+// Null may mean missing source evidence. Confirm with the owner/source platform before remediation.

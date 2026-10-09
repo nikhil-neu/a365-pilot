@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "name": "soc-monitoring",
+  "description": "SOC investigation and telemetry monitoring",
+  "requiredControls": [
+    "owner",
+    "defender-connectors",
+    "telemetry-metadata"
+  ],
+  "deploymentChoices": [
+    "shared-hunting-queries"
+  ],
+  "collectContent": false,
+  "automaticPermissionGrants": false
+}

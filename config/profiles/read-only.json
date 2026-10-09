@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "name": "read-only",
+  "description": "Assessment and inventory without changes",
+  "requiredControls": [
+    "owner",
+    "inventory"
+  ],
+  "deploymentChoices": [],
+  "collectContent": false,
+  "automaticPermissionGrants": false
+}

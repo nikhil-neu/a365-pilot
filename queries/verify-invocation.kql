@@ -1,0 +1,8 @@
+// Filled by verify-invocation CLI with validated IDs and timestamps.
+CloudAppEvents
+| where Timestamp between (datetime(<START-UTC>) .. datetime(<END-UTC>))
+| where tostring(RawEventData.Operation) == "invoke_agent"
+| where tostring(RawEventData.AgentId) == "<APP-ID>"
+| where tostring(RawEventData.ConversationId) == "<CONVERSATION-ID>"
+| project Timestamp, ActionType, ObservabilityAppId=tostring(RawEventData.AgentId),
+          ConversationId=tostring(RawEventData.ConversationId), Operation=tostring(RawEventData.Operation)

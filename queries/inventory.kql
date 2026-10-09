@@ -1,0 +1,7 @@
+// AgentsInfo is preview. Metadata only; no Instructions, RawAgentInfo or raw manifests.
+AgentsInfo
+| where Timestamp > ago(7d)
+| summarize arg_max(Timestamp, *) by AgentId
+| project Timestamp, AgentId, AgentName, Platform, Version, EntraAgentId, EntraBlueprintId,
+          LifecycleStatus, OwnerCount=array_length(Owners),
+          PermissionsHash=hash_sha256(tostring(Permissions)), ToolsHash=hash_sha256(tostring(DeclaredTools))

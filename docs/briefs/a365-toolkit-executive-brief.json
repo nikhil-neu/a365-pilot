@@ -1,0 +1,35 @@
+{
+  "title": "a365-toolkit",
+  "footer": "DEVELOPMENT STATUS  |  Live deployment and production readiness are not yet validated.",
+  "kind": "EXECUTIVE BRIEF",
+  "subtitle": "Preparing the security services that support Agent 365.",
+  "purpose": "Give administrators a controlled way to deploy, configure and verify supporting security services, with explicit approval and evidence at each stage.",
+  "tableTitle": "SERVICE COVERAGE",
+  "rows": [
+    [
+      "Entra",
+      "Agent Conditional Access, scoped rollout and\ncontrol verification.",
+      "Narrow CA workflow"
+    ],
+    [
+      "Defender",
+      "Security integrations, connector readiness and\nagent visibility.",
+      "Partial automation"
+    ],
+    [
+      "Purview",
+      "Audit enablement and scoped data loss\nprevention policies.",
+      "Audit + DLP simulation"
+    ],
+    [
+      "Sentinel",
+      "Ingestion, hunting, detections, workbooks and\nresponse preparation.",
+      "Starter deployment pack"
+    ]
+  ],
+  "leftTitle": "ADMINISTRATOR CONTROL",
+  "left": "Select the tenant and scope. Review existing\nsettings and proposed changes. Approve the\nexact plan, deploy supported components,\nand verify configuration and runtime results.\nApprove enforcement separately.",
+  "rightTitle": "DELIVERY APPROACH",
+  "right": "Qualify workflows in development and\nsandbox tenants before production rollout.\nExpand service coverage and consolidate\nplanning, execution, recovery and drift\nreview into one administrator experience.",
+  "note": "Available today: service-specific executors and a shared command entry point.\nPlanned: cross-service orchestration, broader coverage and production qualification."
+}

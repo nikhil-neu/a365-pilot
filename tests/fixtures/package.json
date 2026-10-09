@@ -1,0 +1,1 @@
+{"id": "P_mock-agent", "displayName": "Mock test agent", "isBlocked": false, "platform": "Custom", "version": "1.0", "appId": "33333333-3333-4333-8333-333333333333", "availableTo": "some", "deployedTo": "some", "elementTypes": ["customEngineAgent"], "supportedHosts": ["Copilot"], "elementDetails": [{"definition": "MOCK_PRIVATE_CONTENT_MUST_NOT_BE_EXPORTED"}]}

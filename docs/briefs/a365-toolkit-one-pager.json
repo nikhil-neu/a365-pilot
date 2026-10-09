@@ -1,0 +1,35 @@
+{
+  "title": "a365-toolkit",
+  "footer": "DEVELOPMENT STATUS  |  Live deployment and production readiness are not yet validated.",
+  "kind": "CAPABILITY OVERVIEW",
+  "subtitle": "One administrator workflow across Entra, Defender, Purview and Sentinel.",
+  "purpose": "Discover what is missing, prepare a reviewable deployment plan, execute approved changes and establish which controls actually work.",
+  "tableTitle": "CURRENT IMPLEMENTATION",
+  "rows": [
+    [
+      "Entra",
+      "Create report-only high-risk agent CA;\nseparately promote or disable the policy.",
+      "Approved changes"
+    ],
+    [
+      "Defender",
+      "Read available hunting evidence; deploy\nthe XDR-to-Sentinel connector.",
+      "Reads + deployment"
+    ],
+    [
+      "Purview",
+      "Enable unified audit; create a scoped DLP\npolicy and rule in simulation mode.",
+      "Approved changes"
+    ],
+    [
+      "Sentinel",
+      "Workspace, connectors, 3 hunts, watchlist,\n2 rules, workbook and incident-task automation.",
+      "Deploy + activate"
+    ]
+  ],
+  "leftTitle": "DEPLOYMENT SEQUENCE",
+  "left": "1  Select tenant and workload scope.\n2  Assess prerequisites and existing settings.\n3  Review and approve each exact plan.\n4  Deploy, then verify data and behavior.\n5  Approve activation; review drift afterward.",
+  "rightTitle": "CURRENT BOUNDARIES",
+  "right": "Development/test live targets only.\nDefender Security for AI setup is separate.\nDLP enforcement is not automated.\nResponse playbooks are human procedures;\nexecutable response runbooks are planned.",
+  "note": "Service licenses, permissions and availability remain prerequisites.\nCreated resources and successful readback do not establish runtime protection."
+}
