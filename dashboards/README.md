@@ -10,3 +10,9 @@ against verified Log Analytics tables. Follow [administrator deployment](../docs
 for its approved installation. Defender Advanced Hunting tables are not assumed to exist
 in that workspace. Publishing a dashboard or sharing tenant evidence requires its own
 explicit instruction. The administrator deployment CLI emits JSON evidence only.
+
+## Agent Knowledge Exposure
+
+Open [the local viewer](knowledge-exposure/index.html) for configured knowledge sources,
+container/content classification evidence and advisory review findings. The initial
+dataset is fictional sample data. See [format and usage](knowledge-exposure/README.md).

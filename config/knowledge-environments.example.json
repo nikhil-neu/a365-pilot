@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "environments": [
+    {
+      "name": "Studio sandbox",
+      "tenantId": "<TEST-TENANT-ID>",
+      "dataverseUrl": "https://yourorg.crm.dynamics.com"
+    }
+  ]
+}

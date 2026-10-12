@@ -35,6 +35,11 @@ def check():
         require(content.startswith('---\n'), 'Missing supported frontmatter')
         fields = dict(line.split(':', 1) for line in content.split('---', 2)[1].strip().splitlines())
         allowed = {'name', 'description'} if path in agents else {'description', 'agent'}
+        if path == agent:
+            allowed = allowed | {'tools'}
+            require(json.loads(fields.get('tools', '[]')) ==
+                    ['vscode/askQuestions', 'read', 'search', 'execute', 'edit'],
+                    'Toolkit requires native input and execution tools')
         require(set(fields) == allowed, 'Unsupported/unexpected frontmatter fields')
         if path not in agents:
             require(fields['agent'].strip() == 'a365-toolkit', 'Prompt agent mismatch')

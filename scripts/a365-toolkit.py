@@ -11,18 +11,24 @@ def main(argv=None):
     if not args or args[0] in ('--help', '-h'):
         print('a365-toolkit: administrator security deployment toolkit\n'
               '  capabilities             Offline capability inventory and gaps\n'
+              '  readiness                Offline supporting-capability checklist\n'
+              '  risk <arguments>         Read-only agent risk assessment (beta)\n'
               '  workflow                 Offline deployment sequence\n'
               '  tenant <arguments>       Existing a365.py assessment/Entra/registry commands\n'
               '  sentinel <arguments>     Existing a365-admin.py build/plan/apply/verify commands\n'
               '  purview                  Show same-session PowerShell instructions\n'
+              '  knowledge <arguments>    Read-only dashboard inventory export\n'
               'Current live executors are development/test only. Production support is planned.')
         return 0
     command, rest = args[0], args[1:]
-    if command in ('capabilities', 'workflow', 'purview') and rest:
+    if command in ('capabilities', 'readiness', 'workflow', 'purview') and rest:
         print('This command takes no additional arguments', file=sys.stderr)
         return 1
     if command == 'capabilities':
         print(json.dumps(read_json(ROOT / 'config/capabilities.json'), indent=2))
+        return 0
+    if command == 'readiness':
+        print(json.dumps(read_json(ROOT / 'config/supporting-capabilities.json'), indent=2))
         return 0
     if command == 'workflow':
         print('1. Select tenant, environment and workload scope.\n'
@@ -41,7 +47,7 @@ def main(argv=None):
               './scripts/Set-PurviewPilot.ps1 -Command Apply ...\n'
               'Full parameters: docs/admin-deployment.md. This entry point does not create a new session.')
         return 0
-    scripts = {'tenant': 'a365.py', 'sentinel': 'a365-admin.py'}
+    scripts = {'risk': 'a365-risk.py', 'tenant': 'a365.py', 'sentinel': 'a365-admin.py', 'knowledge': 'a365-knowledge.py'}
     if command not in scripts:
         print('Unknown command; use --help', file=sys.stderr)
         return 1

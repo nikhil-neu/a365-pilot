@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "kind": "capability-definition-not-tenant-assessment",
+  "validation": "Offline/mock tested only; no new capability has been live-qualified.",
+  "capabilities": [
+    {
+      "id": "frontier",
+      "name": "Frontier preview eligibility",
+      "implementation": "guided",
+      "steps": "Verify eligibility and existing enrollment; review applicable preview terms with the administrator.",
+      "verification": "Enrollment visible in Microsoft 365 admin center; distinguish GA from preview.",
+      "source": "https://learn.microsoft.com/en-us/microsoft-agent-365/frontier",
+      "observedState": "not assessed"
+    },
+    {
+      "id": "agent-risk",
+      "name": "Agent risk assessment",
+      "implementation": "read-only",
+      "steps": "Use toolkit risk with explicit live tenant/environment; use existing tenant executor for separately approved CA plans.",
+      "verification": "Timestamped riskyAgents and agentRiskDetections results; empty results are not proof of coverage.",
+      "source": "https://learn.microsoft.com/en-us/entra/id-protection/concept-risky-agents",
+      "observedState": "not assessed"
+    },
+    {
+      "id": "defender-ai",
+      "name": "Defender Security for AI and connectors",
+      "implementation": "guided",
+      "steps": "Inspect Security for AI setup; confirm Microsoft 365 connector components and Copilot Studio protection integration. Keep XDR-to-Sentinel separate.",
+      "verification": "Connector status plus fresh, correlated hunting/alert evidence; configuration alone is insufficient.",
+      "source": "https://learn.microsoft.com/en-us/defender-xdr/security-for-ai/get-started-defender-security-for-ai",
+      "observedState": "not assessed"
+    },
+    {
+      "id": "local-discovery",
+      "name": "Local agent discovery",
+      "implementation": "guided",
+      "steps": "Select test devices; review endpoint onboarding, supported platform and active Defender prerequisites.",
+      "verification": "Fresh device-specific discovery evidence; an empty inventory is inconclusive.",
+      "source": "https://learn.microsoft.com/en-us/defender-endpoint/discover-local-ai-agents",
+      "observedState": "not assessed"
+    },
+    {
+      "id": "endpoint-protection",
+      "name": "Endpoint agent runtime protection",
+      "implementation": "guided",
+      "steps": "Select supported test devices and method; review Audit mode first. Endpoint execution is not implemented; use documented admin deployment.",
+      "verification": "Device setting readback and benign runtime demonstration; Block requires separate approval.",
+      "source": "https://learn.microsoft.com/en-us/defender-endpoint/configure-ai-agent-runtime-protection",
+      "observedState": "not assessed"
+    },
+    {
+      "id": "purview-capture",
+      "name": "Purview AI interaction collection",
+      "implementation": "guided",
+      "steps": "Separate opt-in for scoped collection/content capture; review users, workloads, retention and access before portal configuration.",
+      "verification": "Policy scope/status and authorized verification in Purview; never export prompts or responses into toolkit evidence.",
+      "source": "https://learn.microsoft.com/en-us/purview/ai-microsoft-purview-considerations",
+      "observedState": "not assessed"
+    },
+    {
+      "id": "agent-identities",
+      "name": "Copilot Studio agent identity verification",
+      "implementation": "guided",
+      "steps": "Inspect Entra Agent ID metadata and corresponding Entra object. New agents receive IDs automatically; assess older agents separately for migration.",
+      "verification": "Exact agent-to-Entra identity match; do not infer identity from names or catalog IDs.",
+      "source": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/admin-use-entra-agent-identities",
+      "observedState": "not assessed"
+    },
+    {
+      "id": "partner-signals",
+      "name": "Third-party risk signals",
+      "implementation": "guided",
+      "steps": "Select partner; verify partner-side integration, matching identity and explicit administrator opt-in in Agents settings.",
+      "verification": "Partner-originated risk evidence matched to an agent; a toggle alone is insufficient.",
+      "source": "https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-registry",
+      "observedState": "not assessed"
+    }
+  ]
+}

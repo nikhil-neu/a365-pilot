@@ -29,3 +29,11 @@ Current deployment code is offline/mock tested; live service behavior is not est
 Licenses, permissions, supported APIs and tenant availability are prerequisites. For an
 unavailable automation interface, the toolkit should name the exact admin step and verify
 its result where possible. It must not report that component as deployed automatically.
+
+## Supporting capability readiness
+
+Choose **Supporting capability readiness** in the toolkit agent for Frontier, agent
+risk, Defender onboarding, local discovery, endpoint runtime protection, Purview
+collection, agent identities and partner signals. The new risk collector is read-only;
+the other new capabilities provide guided setup and verification, not new deployment
+executors. See [delivery status and instructions](supporting-capabilities.md).

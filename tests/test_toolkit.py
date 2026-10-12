@@ -17,12 +17,12 @@ spec.loader.exec_module(entry)
 class ToolkitTests(unittest.TestCase):
     def test_offline_commands_never_spawn_executors(self):
         with patch.object(entry.subprocess, 'run') as run, contextlib.redirect_stdout(io.StringIO()):
-            for args in ([], ['capabilities'], ['workflow'], ['purview']):
+            for args in ([], ['capabilities'], ['readiness'], ['workflow'], ['purview']):
                 self.assertEqual(entry.main(args), 0)
             run.assert_not_called()
 
     def test_arguments_and_exit_codes_are_preserved_without_implied_approval(self):
-        for service, script in [('tenant', 'a365.py'), ('sentinel', 'a365-admin.py')]:
+        for service, script in [('tenant', 'a365.py'), ('sentinel', 'a365-admin.py'), ('risk', 'a365-risk.py')]:
             with patch.object(entry.subprocess, 'run') as run:
                 run.return_value.returncode = 2
                 self.assertEqual(entry.main([service, 'apply', '--plan-file', 'reviewed.json']), 2)

@@ -1,0 +1,484 @@
+// Generated from sample.json for file:// preview; regenerate with the documented command.
+window.KNOWLEDGE_SAMPLE = {
+  "schemaVersion": 1,
+  "dataKind": "sample",
+  "name": "Demonstration workspace \u00b7 fictional agents",
+  "capturedAt": "2026-10-10T08:00:00Z",
+  "complete": false,
+  "labels": [
+    {
+      "id": "public",
+      "name": "Public",
+      "rank": 0
+    },
+    {
+      "id": "internal",
+      "name": "Internal",
+      "rank": 1
+    },
+    {
+      "id": "confidential",
+      "name": "Confidential",
+      "rank": 2
+    },
+    {
+      "id": "restricted",
+      "name": "Restricted",
+      "rank": 3
+    }
+  ],
+  "discoveredContainers": {
+    "value": [
+      "site-people",
+      "site-policy",
+      "site-finance",
+      "site-legal",
+      "site-archive"
+    ],
+    "evidence": {
+      "source": "Synthetic container inventory",
+      "checkedAt": "2026-10-10T08:00:00Z"
+    }
+  },
+  "agents": [
+    {
+      "packageId": "sample-people",
+      "name": "People operations assistant",
+      "platform": "Copilot Studio",
+      "owners": [
+        "Demo HR owner"
+      ],
+      "sources": [
+        {
+          "id": "handbook",
+          "name": {
+            "value": "Employee handbook",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "type": {
+            "value": "SharePoint site",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "location": {
+            "value": "https://example.invalid/sites/people",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "container": {
+            "value": {
+              "id": "site-people",
+              "kind": "site"
+            },
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "containerLabel": {
+            "value": "internal",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "contentLabels": {
+            "value": [
+              "confidential"
+            ],
+            "evidence": {
+              "source": "Synthetic content classification",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "external": {
+            "value": false,
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "accessContext": {
+            "value": "Delegated access \u2014 synthetic evidence",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "lastCheck": {
+            "value": "2026-10-10T08:00:00Z",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "runtimeRetrieved": {
+            "value": true,
+            "evidence": {
+              "source": "Synthetic runtime metadata",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          }
+        },
+        {
+          "id": "policies",
+          "name": {
+            "value": "Company policies",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "type": {
+            "value": "SharePoint site",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "location": {
+            "value": "https://example.invalid/sites/policy",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "container": {
+            "value": {
+              "id": "site-policy",
+              "kind": "site"
+            },
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "containerLabel": {
+            "value": "public",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "contentLabels": {
+            "value": null,
+            "evidence": {
+              "source": "Synthetic content classification",
+              "checkedAt": null
+            }
+          },
+          "external": {
+            "value": false,
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "accessContext": {
+            "value": null,
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": null
+            }
+          },
+          "lastCheck": {
+            "value": "2026-10-10T08:00:00Z",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "runtimeRetrieved": {
+            "value": null,
+            "evidence": {
+              "source": "Synthetic runtime metadata",
+              "checkedAt": null
+            }
+          }
+        }
+      ],
+      "sourcesComplete": true,
+      "evidence": {
+        "source": "Synthetic registry fixture",
+        "checkedAt": "2026-10-10T08:00:00Z"
+      }
+    },
+    {
+      "packageId": "sample-finance",
+      "name": "Finance research assistant",
+      "platform": "Foundry",
+      "owners": [
+        "Demo Finance owner"
+      ],
+      "sources": [
+        {
+          "id": "finance",
+          "name": {
+            "value": "Finance planning",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "type": {
+            "value": "SharePoint site",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "location": {
+            "value": "https://example.invalid/sites/finance",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "container": {
+            "value": {
+              "id": "site-finance",
+              "kind": "site"
+            },
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "containerLabel": {
+            "value": "restricted",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "contentLabels": {
+            "value": null,
+            "evidence": {
+              "source": "Synthetic content classification",
+              "checkedAt": null
+            }
+          },
+          "external": {
+            "value": false,
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "accessContext": {
+            "value": null,
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": null
+            }
+          },
+          "lastCheck": {
+            "value": "2026-10-10T08:00:00Z",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "runtimeRetrieved": {
+            "value": null,
+            "evidence": {
+              "source": "Synthetic runtime metadata",
+              "checkedAt": null
+            }
+          }
+        },
+        {
+          "id": "web",
+          "name": {
+            "value": "Market reference",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "type": {
+            "value": "Public website",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "location": {
+            "value": "https://example.invalid/markets",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "container": {
+            "value": {
+              "id": null,
+              "kind": "notApplicable"
+            },
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "containerLabel": {
+            "value": null,
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": null
+            }
+          },
+          "contentLabels": {
+            "value": null,
+            "evidence": {
+              "source": "Synthetic content classification",
+              "checkedAt": null
+            }
+          },
+          "external": {
+            "value": true,
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "accessContext": {
+            "value": null,
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": null
+            }
+          },
+          "lastCheck": {
+            "value": "2026-10-10T08:00:00Z",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "runtimeRetrieved": {
+            "value": true,
+            "evidence": {
+              "source": "Synthetic runtime metadata",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          }
+        }
+      ],
+      "sourcesComplete": true,
+      "evidence": {
+        "source": "Synthetic registry fixture",
+        "checkedAt": "2026-10-10T08:00:00Z"
+      }
+    },
+    {
+      "packageId": "sample-legal",
+      "name": "Contract review assistant",
+      "platform": "Copilot Studio",
+      "owners": null,
+      "sources": [
+        {
+          "id": "legal",
+          "name": {
+            "value": "Legal workspace",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "type": {
+            "value": "SharePoint site",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "location": {
+            "value": "https://example.invalid/sites/legal",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "container": {
+            "value": {
+              "id": "site-legal",
+              "kind": "site"
+            },
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "containerLabel": {
+            "value": null,
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": null
+            }
+          },
+          "contentLabels": {
+            "value": null,
+            "evidence": {
+              "source": "Synthetic content classification",
+              "checkedAt": null
+            }
+          },
+          "external": {
+            "value": null,
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": null
+            }
+          },
+          "accessContext": {
+            "value": "Maker-provided connection \u2014 synthetic evidence",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "lastCheck": {
+            "value": "2026-10-10T08:00:00Z",
+            "evidence": {
+              "source": "Synthetic configuration export",
+              "checkedAt": "2026-10-10T08:00:00Z"
+            }
+          },
+          "runtimeRetrieved": {
+            "value": null,
+            "evidence": {
+              "source": "Synthetic runtime metadata",
+              "checkedAt": null
+            }
+          }
+        }
+      ],
+      "sourcesComplete": false,
+      "evidence": {
+        "source": "Synthetic registry fixture",
+        "checkedAt": "2026-10-10T08:00:00Z"
+      }
+    },
+    {
+      "packageId": "sample-support",
+      "name": "Support knowledge assistant",
+      "platform": "Custom agent",
+      "owners": [
+        "Demo Support owner"
+      ],
+      "sources": null,
+      "sourcesComplete": false,
+      "evidence": {
+        "source": "Synthetic registry fixture",
+        "checkedAt": "2026-10-10T08:00:00Z"
+      }
+    }
+  ]
+};

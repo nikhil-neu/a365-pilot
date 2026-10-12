@@ -13,6 +13,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
+      - run: python -m pip install -r requirements-knowledge.txt
       - run: python -m unittest discover -s tests -v
       - run: python scripts/check_repository.py
       - run: python scripts/a365.py check-config
@@ -25,3 +26,12 @@ jobs:
         run: |
           ./tests/Test-Purview.Tests.ps1
           ./tests/Set-PurviewPilot.Tests.ps1
+
+  knowledge-dashboard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/knowledge-exposure.test.js

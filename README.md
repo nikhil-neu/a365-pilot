@@ -10,14 +10,17 @@ to existing service executors; cross-service orchestration and production suppor
 
 ## Start in Copilot Chat
 
-Select **a365-toolkit** in the VS Code Copilot Chat agent picker and say:
+In a VS Code **Local** Copilot Chat session, open
+[the toolkit prompt](.github/prompts/a365-toolkit.prompt.md) and click its **Run** button.
+It selects **a365-toolkit** and starts the guided workflow without composing a prompt.
+Selecting the agent in the picker alone does not start a turn.
 
-> Help me set up the security services for Agent 365.
-
-Choose the services in chat. The agent guides prerequisites, shows concrete deployment
-plans, asks for approval in the conversation, runs supported executors and reports
-verification gaps. See [the chat workflow](docs/chat-deployment.md). The CLI is the
-execution layer and remains available for troubleshooting and scripted use.
+Choose an action using Copilot's native selection controls, select multiple services,
+and enter missing values through its input fields. Review each concrete plan and use
+its approval selector before execution. If native controls are unavailable, the agent
+is instructed to stop. These are agent instructions, not an independently enforced UI
+or approval system. See [the chat workflow](docs/chat-deployment.md).
+The CLI remains the execution layer for troubleshooting and scripted use.
 
 Start with the [capability matrix](docs/capability-matrix.md) and
 [deployment workflow](docs/deployment-workflow.md). Client documents:
@@ -48,6 +51,19 @@ Outputs must have new names; evidence files are never overwritten. JSON, Markdow
 an escaped, offline HTML dashboard are produced by `scripts/a365.py --out`.
 The separate administrator deployment CLI produces JSON manifests and evidence. `build` compiles selected
 configuration into local review artifacts. It does not enable a control.
+
+## Agent Knowledge Exposure dashboard
+
+Open [the local dashboard](dashboards/knowledge-exposure/index.html) directly in a browser.
+It starts with clearly labeled fictional sample data. Use **Load JSON** to inspect your
+own metadata export; no hosting or browser tenant API calls are involved. Configured
+sources, container labels, content labels and runtime retrieval evidence are kept separate.
+
+See [the JSON format and data limitations](dashboards/knowledge-exposure/README.md).
+Use the [read-only collection guide](docs/knowledge-collection.md) for real Copilot Studio
+knowledge metadata or catalog identity-only exports. Labels, resolved containers and
+runtime retrieval remain unknown where not collected. This dashboard does not
+change the VS Code Copilot workflow or modify tenant settings.
 
 ## Layout
 
@@ -109,3 +125,17 @@ See [pilot stages](docs/pilot.md), [control matrix](docs/control-matrix.md),
 [validation](docs/validation.md), [drift review](docs/drift-review.md),
 [containment](playbooks/containment.md), and [limitations](docs/limitations.md).
 Interfaces were checked against [Microsoft sources](docs/sources.md) on 2026-10-09.
+
+## Supporting capability readiness
+
+Choose **Supporting capability readiness** in the toolkit agent for Frontier, agent
+risk, Defender onboarding, local discovery, endpoint runtime protection, Purview
+collection, agent identities and partner signals. The new risk collector is read-only;
+the other new capabilities provide guided setup and verification, not new deployment
+executors. See [delivery status and instructions](docs/supporting-capabilities.md).
+
+The knowledge dashboard now includes a **Data governance review** section: search data
+locations, expand connected agents, inspect label/runtime evidence and review suggested
+next steps. It uses the loaded snapshot; effective permissions, sharing and DLP coverage
+remain unavailable pending additional collectors. Open
+[dashboards/knowledge-exposure/index.html](dashboards/knowledge-exposure/index.html).
