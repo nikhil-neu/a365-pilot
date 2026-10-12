@@ -142,3 +142,11 @@ No JSON schema change is required. Effective permissions, sharing and applicable
 coverage are not in the current collector/schema and display Not available. Unknown
 labels are not classified as unlabeled. Agent owners are not assumed to own the data.
 The view performs no mutations and does not infer that a configured source was read.
+
+## Simplified design preview
+
+Open [wireframe.html](wireframe.html) locally for the proposed data-first layout.
+Search and filter locations, then select a row to inspect connected agents, protection
+evidence and suggested next steps. All fixtures, risk findings and timestamps are
+fictional. This standalone wireframe does not authenticate, import tenant data or
+change settings. The existing snapshot dashboard remains available via its link.
