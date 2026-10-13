@@ -1,0 +1,35 @@
+{
+  "approvedInventory": [],
+  "conditionalAccess": {
+    "agentObjectIds": [
+      "a67ecffb-87ed-413c-b951-0fda5ee50c51"
+    ],
+    "displayName": "A365-PILOT-Studio-blueprint-high-risk",
+    "resourceAppIds": [],
+    "resourceScope": "all",
+    "riskLevels": [
+      "high"
+    ],
+    "state": "enabledForReportingButNotEnforced",
+    "targetType": "blueprint"
+  },
+  "profile": "agent-assurance",
+  "purview": {
+    "auditRequired": true,
+    "expectedMode": "TestWithoutNotifications",
+    "policyNames": [
+      "<EXISTING-PILOT-DLP-POLICY-NAME>"
+    ]
+  },
+  "schemaVersion": 1,
+  "telemetry": {
+    "collectContent": false,
+    "maxAgeHours": 24
+  },
+  "tenant": {
+    "displayName": "IBM-Alliance-Microsoft Partner Network-Global-Tenant",
+    "environment": "licensed-demo",
+    "id": "740bc3aa-5daf-42f6-939a-b2d007a60d26",
+    "purpose": "test"
+  }
+}

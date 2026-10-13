@@ -3,6 +3,8 @@ __pycache__/
 *.py[cod]
 .venv/
 config/*.local.json
+# Explicitly shared IBM CA planning configuration (no credentials).
+!config/ibm-blueprint-ca.local.json
 artifacts/
 reports/
 .azure/
