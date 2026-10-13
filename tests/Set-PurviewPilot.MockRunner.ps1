@@ -49,7 +49,7 @@ function New-A365DlpDlpComplianceRule {
     param($Name, $Policy, $ContentContainsSensitiveInformation, $BlockAccess, $Disabled, $Confirm)
     $global:a365Mock.writes += 'rule'
     if ($Case -eq 'partial-failure') { throw 'Timeout' }
-    if ($Policy -ne $global:a365Mock.policy.Guid -or $Disabled -or -not $BlockAccess -or $ContentContainsSensitiveInformation[0].minCount -ne 1) { throw 'Unsafe rule parameters' }
+    if ($Policy -ne $global:a365Mock.policy.Guid -or $Disabled -or -not $BlockAccess -or $ContentContainsSensitiveInformation[0].minCount -ne 1 -or $ContentContainsSensitiveInformation[0].Name -ne 'Credit Card Number') { throw 'Unsafe rule parameters' }
     $global:a365Mock.rule = [pscustomobject]@{Name=$Name; Guid='66666666-6666-4666-8666-666666666666'}
     $global:a365Mock.rule
 }

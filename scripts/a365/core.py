@@ -124,13 +124,6 @@ def report(command, cfg, operations, **extra):
 
 def save_report(path, data):
     write_json(path, data)
-    lines = ['# Agent 365 pilot report', '', 'Tenant: ' + data['tenant']['displayName'], '',
-             'Environment: ' + data['tenant']['environment'], '', 'Captured: ' + data['capturedAt'], '']
-    for item in data['operations']:
-        lines += ['## ' + item['operation'], '', '**' + item['status'] + '**', '',
-                  '```json', json.dumps(item, indent=2), '```', '']
-    md = Path(path).with_suffix('.md')
-    write_text(md, '\n'.join(lines))
-    # Static local dashboard, no scripts, remote resources, or tenant service assumptions.
-    cards = ''.join('<article><h2>' + html.escape(x['operation']) + '</h2><strong>' + html.escape(x['status']) + '</strong><pre>' + html.escape(json.dumps(x, indent=2)) + '</pre></article>' for x in data['operations'])
-    write_text(Path(path).with_suffix('.html'), '<!doctype html><html lang="en"><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src \'none\'; style-src \'unsafe-inline\'"><title>Agent 365 pilot evidence</title><style>body{font:16px system-ui;max-width:1100px;margin:2rem auto;padding:1rem}article{border:1px solid #bbb;padding:1rem;margin:1rem 0}pre{white-space:pre-wrap;overflow-wrap:anywhere}</style><h1>Agent 365 pilot evidence</h1><p>' + html.escape(data['tenant']['displayName'] + ' / ' + data['tenant']['environment']) + '</p>' + cards + '</html>')
+    from .presentation import markdown, html_report
+    write_text(Path(path).with_suffix('.md'), markdown(data))
+    write_text(Path(path).with_suffix('.html'), html_report(data))

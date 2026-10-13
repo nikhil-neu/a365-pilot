@@ -4,6 +4,7 @@ from urllib.parse import quote
 
 from .core import ROOT, SafetyError, digest, guid, now, require, result, timestamp, write_json
 from .graph import CA, CATALOG, HUNT
+from .licensing import current_user_license
 
 CA_FIELDS = ('displayName', 'state', 'conditions', 'grantControls')
 
@@ -51,7 +52,8 @@ def hunt(graph, filename):
 def assess(graph, cfg):
     operations = []
     operations.append(probe('license-inventory', lambda: graph.collection('/v1.0/subscribedSkus?$select=skuId,skuPartNumber,capabilityStatus,consumedUnits,servicePlans')))
-    operations.append(result('license-eligibility', 'manual admin step required', 'Confirm Agent 365 license assignment, underlying entitlements, terms acceptance, Entra P2 for risk policies and applicable Defender/Purview licenses. SKU presence alone is not proof.', rollback='No automatic licensing or consent changes'))
+    operations.append(current_user_license(graph))
+    operations.append(result('license-eligibility', 'manual admin step required', 'Current-user assignment is reported separately. Confirm other relevant users, underlying entitlements, terms acceptance, Entra P2 for risk policies and applicable Defender/Purview licenses. SKU presence alone is not proof.', rollback='No automatic licensing or consent changes'))
     operations.append(probe('active-directory-roles', lambda: graph.collection('/v1.0/me/transitiveMemberOf/microsoft.graph.directoryRole?$select=id,displayName,roleTemplateId')))
     operations.append(result('effective-product-roles', 'manual admin step required', 'Role list is partial: confirm active PIM assignments, scoped Entra roles, AI Administrator, Defender unified RBAC, Purview role groups, Power Platform and Azure roles per docs/permissions.md.'))
     operations.append(probe('conditional-access', lambda: graph.collection(CA), 'beta'))

@@ -17,6 +17,10 @@ It must not fall back to asking for typed chat answers.
    containment simulation, knowledge exposure, offline build, resume or stop.
 2. A **Services** multi-select when relevant: Entra Conditional Access, Defender,
    Purview audit, Purview DLP and Sentinel essentials. Check all five for all services.
+   Standard readiness assessment skips this step. If the control is already pending,
+   choose **Not applicable — standard readiness assessment** on its own. This continues
+   to tenant and read-only scope confirmation; it is not a deployment choice and does
+   not change assessment results to “not applicable.”
 3. A **Target** selector displaying the configured tenant name, UUID and environment.
    Missing identifiers, URLs and paths use native text-entry controls and validation.
 4. A **Discovery** selector confirming the displayed read-only scope or offline work.
@@ -128,3 +132,11 @@ risk, Defender onboarding, local discovery, endpoint runtime protection, Purview
 collection, agent identities and partner signals. The new risk collector is read-only;
 the other new capabilities provide guided setup and verification, not new deployment
 executors. See [delivery status and instructions](supporting-capabilities.md).
+
+## Assessment report presentation
+
+Assessment output now includes a readable Markdown summary for the Copilot response
+and a tabular HTML report with expandable original evidence. Both sit beside the JSON
+under the same output filename stem. The coordinator presents the summary in chat and
+links all three files. Existing reports are preserved; rerun with a new output name to
+use the updated layout. Read success is not a compliance assertion.

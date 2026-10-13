@@ -131,7 +131,8 @@ try {
         $params = @{ Name=$p.policyName; Mode='TestWithoutNotifications'; Confirm=$false }
         if ($p.exchangeLocations.Count) { $params.ExchangeLocation = [string[]]$p.exchangeLocations }
         if ($p.sharePointLocations.Count) { $params.SharePointLocation = [string[]]$p.sharePointLocations }
-        $created = New-A365DlpDlpCompliancePolicy @params
+        $created = New-A365DlpDlpCompliancePolicy @params -ErrorAction Stop
+        if (-not $created -or -not $created.Guid) { throw 'Policy creation returned no identity; inspect remote state before recovery' }
         $script:receipts += @{ operation='dlp-policy-create'; name=$p.policyName; guid=[string]$created.Guid; status='not verifiable' }
         Save-NewJson (Join-Path $EvidenceDirectory 'policy-receipt.json') $script:receipts
         $observed = @(Get-A365DlpDlpCompliancePolicy -Identity $p.policyName)
@@ -139,8 +140,9 @@ try {
         $policyId = $observed[0].Guid.ToString()
         # Check that no rule appeared between policy creation and rule creation.
         if (@(Get-A365DlpDlpComplianceRule | Where-Object Name -eq $p.ruleName).Count) { throw 'Rule appeared concurrently; stopping partial deployment' }
-        $sensitive = @(@{ Name=$snapshot.sensitiveTypeId; minCount=[int]$p.minCount })
-        $rule = New-A365DlpDlpComplianceRule -Name $p.ruleName -Policy $policyId -ContentContainsSensitiveInformation $sensitive -BlockAccess $true -Disabled $false -Confirm:$false
+        $sensitive = @(@{ Name=[string]$p.sensitiveInformationType; minCount=[string]$p.minCount })
+        $rule = New-A365DlpDlpComplianceRule -Name $p.ruleName -Policy $policyId -ContentContainsSensitiveInformation $sensitive -BlockAccess $true -Disabled $false -Confirm:$false -ErrorAction Stop
+        if (-not $rule -or -not $rule.Guid) { throw 'Rule creation returned no identity; inspect remote state before recovery' }
         $script:receipts += @{ operation='dlp-rule-create'; name=$p.ruleName; guid=[string]$rule.Guid; policyGuid=$policyId; status='not verifiable' }
         Save-NewJson (Join-Path $EvidenceDirectory 'rule-receipt.json') $script:receipts
         $after = @(Get-A365DlpDlpComplianceRule -Identity $p.ruleName)

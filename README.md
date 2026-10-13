@@ -139,3 +139,11 @@ locations, expand connected agents, inspect label/runtime evidence and review su
 next steps. It uses the loaded snapshot; effective permissions, sharing and DLP coverage
 remain unavailable pending additional collectors. Open
 [dashboards/knowledge-exposure/index.html](dashboards/knowledge-exposure/index.html).
+
+## Start in Codex
+
+Open this repository in a local Codex session and say **Start a365-toolkit**.
+[AGENTS.md](AGENTS.md) routes that request to the same toolkit scripts and safeguards.
+This is a repository workflow, not an additional agent-picker item. Native selection
+controls depend on the Codex host; see [the Codex entry point](docs/codex-workflow.md)
+for assessment setup, explicit approvals and report delivery.

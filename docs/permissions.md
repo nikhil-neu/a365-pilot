@@ -46,3 +46,17 @@ uses the prefixed `Get-Mailbox` and requires Exchange recipient read access. Sen
 uses explicit subscription-bound ARM requests, Azure resource read/write RBAC, and
 connector-specific product roles. Microsoft Entra Global Administrator alone is not an
 Azure resource-group role. No role assignment or consent is automated.
+
+## Current-user Agent 365 assignment
+
+Assessment now reads `/v1.0/me/licenseDetails` using the existing delegated session.
+`LicenseAssignment.Read.All` and a supported license-details read role are required;
+no consent is granted automatically. The report exposes
+`currentUserHasAgent365License`: true for the documented Agent 365 SKU or its service
+plan within an assigned suite; false if a complete well-formed read has no match; null
+if unavailable/incomplete. This checks the signed-in administrator, not all agent owners.
+Disabled/pending service-plan states are shown separately: assignment is not enablement.
+Frontier and future product mappings are not inferred by name.
+
+References: [licenseDetails](https://learn.microsoft.com/en-us/graph/api/user-list-licensedetails?view=graph-rest-1.0),
+[product and plan IDs](https://learn.microsoft.com/en-us/entra/identity/users/licensing-service-plan-reference).
