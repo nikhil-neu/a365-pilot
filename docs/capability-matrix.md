@@ -6,7 +6,7 @@ Current deployment code is offline/mock tested; live service behavior is not est
 
 | Service | Available implementation | Missing or separately performed | Acceptance evidence needed |
 | --- | --- | --- | --- |
-| Entra | Narrow high-risk agent CA create/report-only, promote and disable | Broader baseline and production qualification | Exact identity/resource scope, policy readback and tested sign-in behavior |
+| Entra | Narrow high-risk agent CA create/report-only, promote and disable; blueprint/All resources plans | Expanded-scope live API qualification, broader baseline and production qualification | Exact identity/resource scope, policy readback and tested sign-in behavior |
 | Defender | Available inventory/hunting reads; XDR-to-Sentinel connector deployment | Security for AI portal onboarding; comprehensive connector health verification | Connected required workloads, fresh telemetry and a correlated benign invocation |
 | Purview audit | Read state and separately approved tenant-wide enablement | End-to-end agent/workload audit coverage | Enabled state plus expected events with correct actor and timestamps |
 | Purview DLP | New explicit mailbox/site policy and rule in simulation | Existing-policy reconciliation, enforcement promotion, agent-path coverage | Effective scope, predicate, distribution status and benign matching test |

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "tenant": {
+    "id": "<TEST-TENANT-ID>",
+    "displayName": "<EXACT-TEST-TENANT-NAME>",
+    "environment": "isolated-pilot",
+    "purpose": "test"
+  },
+  "profile": "agent-assurance",
+  "conditionalAccess": {
+    "displayName": "A365-PILOT-high-agent-risk",
+    "agentObjectIds": [
+      "<TENANT-BLUEPRINT-PRINCIPAL-OBJECT-ID>"
+    ],
+    "resourceAppIds": [],
+    "riskLevels": [
+      "high"
+    ],
+    "state": "enabledForReportingButNotEnforced",
+    "targetType": "blueprint",
+    "resourceScope": "all"
+  },
+  "purview": {
+    "policyNames": [
+      "<EXISTING-PILOT-DLP-POLICY-NAME>"
+    ],
+    "expectedMode": "TestWithoutNotifications",
+    "auditRequired": true
+  },
+  "telemetry": {
+    "collectContent": false,
+    "maxAgeHours": 24
+  },
+  "approvedInventory": []
+}

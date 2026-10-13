@@ -83,13 +83,19 @@ def check_config(cfg, live=False):
     require(cfg['profile'] in ('read-only', 'data-access', 'action-capable', 'soc-monitoring', 'agent-assurance'), 'Unknown profile')
     require(profile.exists(), 'Missing profile')
     ca = cfg['conditionalAccess']
-    require(set(ca) == {'displayName', 'agentObjectIds', 'resourceAppIds', 'riskLevels', 'state'}, 'Invalid CA configuration')
+    required_ca = {'displayName', 'agentObjectIds', 'resourceAppIds', 'riskLevels', 'state'}
+    require(required_ca <= set(ca) <= required_ca | {'targetType', 'resourceScope'}, 'Invalid CA configuration')
+    require(ca.get('targetType', 'individual') in ('individual', 'blueprint'), 'Invalid CA targetType')
+    require(ca.get('resourceScope', 'selected') in ('selected', 'all'), 'Invalid CA resourceScope')
     require(isinstance(ca['displayName'], str) and ca['displayName'].startswith('A365-PILOT-'), 'CA name must start A365-PILOT-')
     require(ca['state'] == 'enabledForReportingButNotEnforced', 'Baseline must be report-only; promotion is a separate plan')
     require(ca['riskLevels'] == ['high'], 'Pilot baseline supports high agent risk only')
     for key in ('agentObjectIds', 'resourceAppIds'):
         values = ca[key]
-        require(isinstance(values, list) and values and len(values) == len(set(values)), key + ' must be a nonempty unique list')
+        if key == 'resourceAppIds' and ca.get('resourceScope') == 'all':
+            require(values == [], 'All resources requires empty resourceAppIds; do not combine scopes')
+            continue
+        require(isinstance(values, list) and values and all(isinstance(v, str) for v in values) and len(values) == len(set(values)), key + ' must be a nonempty unique list')
         require(all(guid(v) or (isinstance(v, str) and v.startswith('<') and v.endswith('>')) for v in values), key + ' requires UUIDs or unconfigured placeholders; wildcard scopes prohibited')
     purview = cfg['purview']
     require(set(purview) == {'policyNames', 'expectedMode', 'auditRequired'}, 'Invalid Purview configuration')

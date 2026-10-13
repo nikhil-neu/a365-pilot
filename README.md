@@ -147,3 +147,5 @@ Open this repository in a local Codex session and say **Start a365-toolkit**.
 This is a repository workflow, not an additional agent-picker item. Native selection
 controls depend on the Codex host; see [the Codex entry point](docs/codex-workflow.md)
 for assessment setup, explicit approvals and report delivery.
+
+Conditional Access scope options: [blueprint and All resources planning](docs/conditional-access-scopes.md).

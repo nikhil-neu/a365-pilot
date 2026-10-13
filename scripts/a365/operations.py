@@ -12,7 +12,7 @@ CA_FIELDS = ('displayName', 'state', 'conditions', 'grantControls')
 def ca_payload(cfg):
     ca = cfg['conditionalAccess']
     return {'displayName': ca['displayName'], 'state': ca['state'],
-            'conditions': {'clientAppTypes': ['all'], 'applications': {'includeApplications': ca['resourceAppIds']},
+            'conditions': {'clientAppTypes': ['all'], 'applications': {'includeApplications': ['All'] if ca.get('resourceScope') == 'all' else ca['resourceAppIds']},
                            'clientApplications': {'includeAgentIdServicePrincipals': ca['agentObjectIds']},
                            'agentIdRiskLevels': 'high'},
             'grantControls': {'operator': 'OR', 'builtInControls': ['block']}}
@@ -166,19 +166,29 @@ def build_plan(graph, cfg, intent, target=None):
         require(target is None, 'CA target comes only from explicit configured object IDs')
         for field in ('agentObjectIds', 'resourceAppIds'):
             require(all(guid(value) for value in cfg['conditionalAccess'][field]), 'Replace all CA target placeholders before live CA planning')
-        # Typed endpoint proves each target is an individual agent identity, not a blueprint principal.
+        # Typed reads distinguish tenant blueprint principals from individual identities.
+        blueprint = cfg['conditionalAccess'].get('targetType') == 'blueprint'
+        target_type = 'agentIdentityBlueprintPrincipal' if blueprint else 'agentIdentity'
         identities = []
         for agent_id in cfg['conditionalAccess']['agentObjectIds']:
-            obj = graph.request('GET', '/beta/servicePrincipals/' + agent_id + '/microsoft.graph.agentIdentity')
+            obj = graph.request('GET', '/beta/servicePrincipals/' + agent_id + '/microsoft.graph.' + target_type)
             require(obj.get('id', '').lower() == agent_id.lower(), 'Agent identity lookup mismatch')
             identities.append({'id': obj['id'], 'displayName': obj.get('displayName'), 'agentIdentityBlueprintId': obj.get('agentIdentityBlueprintId')})
         policies = [p for p in graph.collection(CA) if p.get('displayName') == cfg['conditionalAccess']['displayName']]
         require(len(policies) <= 1, 'Duplicate policy names; manual reconciliation required')
         expected = ca_payload(cfg)
         plan.update(requiredRoles=['Conditional Access Administrator'], requiredPermissions=['Policy.Read.All', 'Policy.ReadWrite.ConditionalAccess', 'AgentIdentity.Read.All'],
-                    licensing=['Agent 365 plus Entra ID P2 (or qualifying E7/E5 entitlement); confirm assignment'], identities=identities,
+                    licensing=['Agent 365 plus Entra ID P2/Microsoft 365 E5, or Microsoft 365 E7; confirm assignment'], identities=identities,
                     impact='Only the listed autonomous agent identity object IDs requesting tokens for the listed resource application IDs at high agent risk. No delegated user, agent-user or blueprint token coverage.',
                     rollback='Create ca-disable plan to disable this policy; review and approve its new digest. Promotion can be reversed in Entra to report-only after approval.')
+        if blueprint or cfg['conditionalAccess'].get('resourceScope') == 'all':
+            plan['scope'] = {'targetType': 'blueprint' if blueprint else 'individual',
+                             'resourceScope': cfg['conditionalAccess'].get('resourceScope', 'selected')}
+            plan['impact'] = (('All current and future autonomous agent identities derived from the selected tenant blueprint principals' if blueprint else 'Only the listed autonomous agent identities')
+                              + (' accessing all Entra-protected resources' if cfg['conditionalAccess'].get('resourceScope') == 'all' else ' accessing the listed resource application IDs')
+                              + ' at high agent risk. Report-only baseline does not block. No delegated user, agent-user or blueprint provisioning token coverage.')
+            plan['executionSupported'] = False
+            plan['executionLimitation'] = 'Expanded CA scopes are plan-only pending live API qualification.'
         if not policies:
             require(intent == 'ca-deploy', 'Policy does not exist')
             plan.update(request={'method': 'POST', 'path': CA, 'body': expected}, desired=expected)
@@ -238,6 +248,7 @@ def apply_plan(graph, cfg, document, approval, evidence_dir, execute=False):
     require(fresh == plan, 'Live state changed since review; generate a new plan')
     if not execute:
         return result(plan['intent'], 'skipped', {'dryRun': True, 'plan': plan}, impact=plan['impact'], rollback=plan['rollback'])
+    require(plan.get('executionSupported', True), 'Expanded CA scopes are plan-only pending live API qualification')
     require(approval == document['approvalDigest'], 'Explicit approval digest required')
     if plan['request'] is None:
         return result(plan['intent'], 'skipped', 'Already in desired state; no write issued', impact=plan['impact'], rollback=plan['rollback'])

@@ -4,7 +4,8 @@ Reviewed 2026-10-09. This repository is a pilot implementation, not proof of ten
 
 - Agent CA targeting and `agentIdRiskLevels` use Graph beta. Risk signals and `AgentsInfo`
   are documented preview features. The kit selects individual autonomous agent identities,
-  explicit resources and high risk only. Agent-user/delegated flows and blueprint provisioning
+  explicit resources and high risk for execution. Blueprint targeting and All resources
+  are available for plan-only review pending live API qualification. Agent-user/delegated flows and blueprint provisioning
   tokens are not covered by this baseline. No wildcard/tenant-wide fallback exists.
 - The current registry uses Copilot package APIs. List/get use documented v1.0 routes;
   the Agent 365 registry feature remains described as preview. Block/unblock are beta and
