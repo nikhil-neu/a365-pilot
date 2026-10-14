@@ -143,10 +143,11 @@ coverage are not in the current collector/schema and display Not available. Unkn
 labels are not classified as unlabeled. Agent owners are not assumed to own the data.
 The view performs no mutations and does not infer that a configured source was read.
 
-## Simplified design preview
+## File governance review
 
-Open [wireframe.html](wireframe.html) locally for the proposed data-first layout.
-Search and filter locations, then select a row to inspect connected agents, protection
-evidence and suggested next steps. All fixtures, risk findings and timestamps are
-fictional. This standalone wireframe does not authenticate, import tenant data or
-change settings. The existing snapshot dashboard remains available via its link.
+The former [wireframe](wireframe.html) is now a functional file-governance JSON viewer.
+It starts with explicitly fictional data, accepts validated metadata exports, calculates
+review findings and exports a plain-text review. See [the format guide](../../docs/file-governance-import.md)
+for required evidence, known/unknown semantics and collection limitations. The existing
+agent-inventory JSON format above is unchanged and is not interchangeable with this
+file-level format. No live governance collectors or mutation actions have been added.

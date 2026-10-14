@@ -1,25 +1,46 @@
 'use strict';
-// Fictional design fixtures only. These are not collector output or tenant evidence.
-const locations=[
- {id:'finance',name:'Finance planning',type:'SharePoint · Document library',path:'sharepoint.example/sites/finance/Planning',agents:['Budget assistant','Leadership briefing'],label:'Confidential',files:'4 unlabeled files (sample)',sharing:'Internal team',dlp:'Scope gap (sample)',status:'finding',title:'Unlabeled files and a DLP scope gap',finding:'Example evidence identifies four unlabeled files and a library omitted from the intended DLP policy. Review with the finance data owner.',steps:['Confirm the four files and their classification.','Review the intended DLP policy scope and exceptions.','Prepare scoped changes for owner approval.'],runtime:'Not available'},
- {id:'people',name:'People operations',type:'SharePoint · Site',path:'sharepoint.example/sites/people',agents:['People assistant'],label:'Internal',files:'Not available',sharing:'Not available',dlp:'Not available',status:'unknown',title:'Protection evidence is incomplete',finding:'This source is configured, but file labels, effective sharing and DLP coverage have not been verified. This is an evidence gap, not a confirmed exposure.',steps:['Resolve the site and library identifiers.','Collect file-label, sharing and DLP evidence.','Assign a data owner to review the results.'],runtime:'Not available'},
- {id:'policies',name:'Company policies',type:'SharePoint · Document library',path:'sharepoint.example/sites/policies/Documents',agents:['People assistant','Policy assistant'],label:'Internal',files:'Internal (sample evidence)',sharing:'Internal readers',dlp:'In scope (sample)',status:'clear',title:'No finding in the supplied example',finding:'The fictional checks show expected labels and policy scope. This is not a compliance certification or proof of all runtime protections.',steps:['Confirm that connected agents still need this source.','Review changes to sharing and policy exceptions.','Recheck after configuration changes.'],runtime:'Observed (sample metadata)'},
- {id:'partner',name:'Partner reference material',type:'Website · External source',path:'https://partner.example/reference',agents:['Policy assistant'],label:'Not applicable',files:'Not available',sharing:'Public website (sample)',dlp:'Not assessed',status:'unknown',title:'External source requires an ownership review',finding:'An external knowledge source is not proof of internal data leakage. Confirm the source is approved and identify which controls apply.',steps:['Confirm the publisher and intended use.','Review whether the agent also handles internal information.','Document the approved source and review owner.'],runtime:'Not available'}
-];
-const $=id=>document.getElementById(id),node=(tag,text,cls)=>{const e=document.createElement(tag);e.textContent=text;if(cls)e.className=cls;return e;};
-const statuses={finding:'Finding',unknown:'Needs evidence',clear:'No sample finding'};
-let selected='finance';
-$('locations').textContent=locations.length;$('agents').textContent=new Set(locations.flatMap(x=>x.agents)).size;$('findings').textContent=locations.filter(x=>x.status==='finding').length;$('unknown').textContent=locations.filter(x=>x.status==='unknown').length;
-function detail(item){const host=$('detail');host.replaceChildren();if(!item){host.append(node('h2','No location selected'),node('p','Adjust the search or filter to review a data location.'));return;}
- host.append(node('span',statuses[item.status],'badge '+item.status),node('h2',item.name),node('p',item.path,'path'),node('h3','Connected agents'));
- const chips=node('div','','chips');item.agents.forEach(a=>chips.append(node('span',a,'chip')));host.append(chips,node('h3','Protection evidence'));
- const grid=node('div','','evidence-grid');for(const [key,value]of [['Container label',item.label],['File labels',item.files],['Sharing',item.sharing],['DLP coverage',item.dlp],['Effective access','Not verified'],['Runtime retrieval',item.runtime]]){const cell=node('div','');cell.append(node('span',key),node('strong',value));grid.append(cell);}host.append(grid);
- const review=node('div','','review-card');review.append(node('strong',item.title),node('p',item.finding));host.append(review,node('h3','Suggested next steps'));
- const list=node('ol','','steps');item.steps.forEach(s=>list.append(node('li',s)));host.append(list);
- const evidence=node('details','');evidence.append(node('summary','Evidence and limitations'),node('p','Source: fictional design fixture. Example snapshot: 12 October 2026, 09:00 IST. All populated observations share this fictional timestamp; unavailable fields have no evidence.'),node('p','Site labels and file labels are separate. A configured connection does not establish effective access. No prompt or response content is shown.'));host.append(evidence);
+const M=window.FileGovernance;
+let dataset=M.validate(window.FILE_GOVERNANCE_SAMPLE),files=dataset.files.map(M.view);
+const $=id=>document.getElementById(id);
+const node=(tag,text,cls)=>{const e=document.createElement(tag);e.textContent=text;if(cls)e.className=cls;return e;};
+const statuses={finding:'Review required',unknown:'Needs evidence',clear:'No finding established'};
+let selected=files[0]?.id;
+function detail(f){const host=$('detail');host.replaceChildren();if(!f){host.append(node('h2','No matching file'));return;}
+ host.append(node('span',statuses[f.status],'badge '+f.status),node('h2',f.name),node('p',f.location||'Location unavailable','path'),node('h3','Configured source relationships'));
+ const chips=node('div','','chips');f.agents.forEach(a=>chips.append(node('span',a,'chip')));host.append(chips,node('p','Agents are configured for the containing source. This does not prove access to, or retrieval of, every file.','footnote'));
+ host.append(node('h3','Protection evidence'));
+ const grid=node('div','','evidence-grid');
+ for(const key of M.fields){
+ const o=f.observations[key];
+ const cell=node('div','');cell.append(node('span',key),node('strong',f[key]),node('small',o.evidence.source+' · '+o.evidence.checkedAt+' · '+o.state));grid.append(cell);
+ }host.append(grid);
+ const card=node('div','','review-card');card.append(node('strong','Why this file needs review'),node('p',f.reason));host.append(card,node('h3','Suggested remediation'));
+ const steps=node('ol','','steps');f.steps.forEach(s=>steps.append(node('li',s)));host.append(steps);
+ const button=node('button','Prepare review summary','review-button');const output=node('div','','review-output');output.setAttribute('aria-live','polite');button.onclick=()=>{output.replaceChildren(node('strong','Draft review · '+dataset.dataKind),node('p',f.name+' — owner: '+f.owner),node('p',f.steps.join(' ')),node('p','No action submitted. Recollect live evidence, confirm scope and obtain separate approval before changing labels, permissions or DLP.'));};host.append(button,output);
+ const evidence=node('details','');evidence.append(node('summary','Coverage and limitations'),node('p','Exported observations are supplied evidence, not independently verified. No file content, prompts or responses are collected. Policy inclusion does not prove a rule match or effective enforcement. External sharing is not itself proof of unauthorized disclosure. Unknown classification is never treated as unlabeled.'));host.append(evidence);
 }
-function render(){const q=$('search').value.toLowerCase(),f=$('filter').value;const visible=locations.filter(x=>(f==='all'||x.status===f)&&[x.name,x.path,...x.agents].join(' ').toLowerCase().includes(q));if(!visible.some(x=>x.id===selected))selected=visible[0]?.id;
- $('rows').replaceChildren();for(const item of visible){const row=node('tr','',selected===item.id?'selected':'');const source=node('td',''),button=node('button',item.name);button.setAttribute('aria-pressed',String(selected===item.id));button.onclick=()=>{selected=item.id;render();};source.append(button,node('small',item.type));const agents=node('td',String(item.agents.length));agents.append(node('small',item.agents.length===1?'agent':'agents'));const label=node('td',item.label);label.append(node('small','Container label'));const status=node('td','');status.append(node('span',statuses[item.status],'badge '+item.status));row.append(source,agents,label,status);$('rows').append(row);}
- $('count').textContent=visible.length+' locations';$('empty').hidden=visible.length!==0;detail(visible.find(x=>x.id===selected));
+function render(){
+ $('locations').textContent=files.length;
+ $('agents').textContent=new Set(dataset.files.flatMap(f=>f.agents.map(a=>a.id))).size;
+ $('findings').textContent=files.filter(f=>f.status==='finding').length;
+ $('unknown').textContent=files.filter(f=>f.unknown.length).length;
+ $('coverage').textContent=['label','sharing','dlp'].map(k=>k+': '+files.filter(f=>f.observations[k].state==='known').length+'/'+files.length+' observed').join(' · ')+' · Inventory completeness (exporter declaration): '+dataset.complete;
+ $('kind').textContent=dataset.dataKind==='sample'?'SAMPLE DATA':'TENANT EXPORT';
+ $('dataset').textContent=dataset.name;
+ $('identity').textContent=dataset.tenantId+' / '+dataset.environment;
+ $('banner').textContent=(dataset.dataKind==='sample'?'SAMPLE DATA — all evidence is fictional. ':'TENANT EXPORT — supplied evidence; provenance has not been independently verified. ')+ 'Snapshot: '+dataset.capturedAt+'. No live connection or changes. No tenant-wide completeness inferred.';
+const q=$('search').value.toLowerCase(),filter=$('filter').value;
+ const visible=files.filter(f=>(filter==='all'||(filter==='unknown'?f.unknown.length>0:f.status===filter))&&[f.name,f.site,...f.agents].join(' ').toLowerCase().includes(q));
+ if(!visible.some(f=>f.id===selected))selected=visible[0]?.id;
+ $('rows').replaceChildren();for(const f of visible){const row=node('tr','',f.id===selected?'selected':'');const cell=node('td',''),b=node('button',f.name);b.setAttribute('aria-pressed',String(f.id===selected));b.onclick=()=>{selected=f.id;render();};cell.append(b,node('small',f.site),node('small',f.agents.length+' connected agent(s)'));row.append(cell,node('td',f.label==='Labeled'?f.labelName:f.label),node('td',f.sharing),node('td',f.dlp));const status=node('td','');status.append(node('span',statuses[f.status],'badge '+f.status));row.append(status);$('rows').append(row);}
+ $('count').textContent=visible.length+' files';$('empty').hidden=visible.length!==0;detail(visible.find(f=>f.id===selected));
 }
 $('search').addEventListener('input',render);$('filter').addEventListener('change',render);render();
+
+function load(d){M.validate(d);dataset=d;files=d.files.map(M.view);selected=files[0]?.id;$('search').value='';$('filter').value='all';$('error').hidden=true;render();}
+let importVersion=0;
+$('upload').addEventListener('change',async e=>{const ticket=++importVersion;try{const f=e.target.files[0];if(!f)return;if(f.size>5*1024*1024)throw new Error('File exceeds 5 MB');const text=await f.text();if(ticket!==importVersion)return;load(JSON.parse(text));}catch(err){if(ticket!==importVersion)return;$('error').textContent='Import rejected: '+err.message+'. Previous dataset retained.';$('error').hidden=false;}finally{e.target.value='';}});
+$('reset').onclick=()=>{importVersion++;load(window.FILE_GOVERNANCE_SAMPLE);};
+function download(name,text,type){const u=URL.createObjectURL(new Blob([text],{type}));const a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
+$('export').onclick=()=>download('agent-governance-review.txt',M.report(dataset),'text/plain');
+$('template').onclick=()=>download('file-governance.sample.json',JSON.stringify(window.FILE_GOVERNANCE_SAMPLE,null,2),'application/json');

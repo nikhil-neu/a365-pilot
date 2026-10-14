@@ -149,3 +149,10 @@ controls depend on the Codex host; see [the Codex entry point](docs/codex-workfl
 for assessment setup, explicit approvals and report delivery.
 
 Conditional Access scope options: [blueprint and All resources planning](docs/conditional-access-scopes.md).
+
+## File governance review
+
+Open [the local file governance dashboard](dashboards/knowledge-exposure/wireframe.html),
+load a metadata JSON export, review labels/sharing/DLP evidence and export a text report.
+No app registration is required. The initial dataset is fictional; real tenant evidence
+must be supplied separately. See [the import format and limitations](docs/file-governance-import.md).
