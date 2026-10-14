@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "tenant": {
+    "id": "5dfd8470-8096-41d6-aee5-54d9ef00b47d",
+    "displayName": "MSFT",
+    "environment": "isolated-pilot",
+    "purpose": "test"
+  },
+  "profile": "agent-assurance",
+  "conditionalAccess": {
+    "displayName": "A365-PILOT-high-agent-risk",
+    "agentObjectIds": [
+      "<INDIVIDUAL-AGENT-IDENTITY-OBJECT-ID>"
+    ],
+    "resourceAppIds": [
+      "<TARGET-RESOURCE-APPLICATION-ID>"
+    ],
+    "riskLevels": [
+      "high"
+    ],
+    "state": "enabledForReportingButNotEnforced"
+  },
+  "purview": {
+    "policyNames": [
+      "A365-PILOT-DLP-Demo"
+    ],
+    "expectedMode": "TestWithoutNotifications",
+    "auditRequired": true
+  },
+  "telemetry": {
+    "collectContent": false,
+    "maxAgeHours": 24
+  },
+  "approvedInventory": []
+}

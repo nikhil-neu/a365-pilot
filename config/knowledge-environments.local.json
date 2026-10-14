@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "environments": [
+    {
+      "name": "MSFT Studio test",
+      "tenantId": "5dfd8470-8096-41d6-aee5-54d9ef00b47d",
+      "dataverseUrl": "https://org726da4c4.crm.dynamics.com"
+    }
+  ]
+}

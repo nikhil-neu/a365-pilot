@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "tenant": {
+    "id": "740bc3aa-5daf-42f6-939a-b2d007a60d26",
+  "displayName": "IBM-Alliance-Microsoft Partner Network-Global-Tenant",
+    "environment": "licensed-demo",
+    "purpose": "test"
+  },
+  "profile": "agent-assurance",
+  "conditionalAccess": {
+    "displayName": "A365-PILOT-high-agent-risk",
+    "agentObjectIds": ["<INDIVIDUAL-AGENT-IDENTITY-OBJECT-ID>"],
+    "resourceAppIds": ["<TARGET-RESOURCE-APPLICATION-ID>"],
+    "riskLevels": ["high"],
+    "state": "enabledForReportingButNotEnforced"
+  },
+  "purview": {
+    "policyNames": ["<EXISTING-PILOT-DLP-POLICY-NAME>"],
+    "expectedMode": "TestWithoutNotifications",
+    "auditRequired": true
+  },
+  "telemetry": {"collectContent": false, "maxAgeHours": 24},
+  "approvedInventory": []
+}

@@ -3,8 +3,12 @@ __pycache__/
 *.py[cod]
 .venv/
 config/*.local.json
-# Explicitly shared IBM CA planning configuration (no credentials).
+# Explicitly shared tenant configurations (no credentials).
 !config/ibm-blueprint-ca.local.json
+!config/demo.local.json
+!config/pilot.local.json
+!config/purview-demo.local.json
+!config/knowledge-environments.local.json
 artifacts/
 reports/
 .azure/
